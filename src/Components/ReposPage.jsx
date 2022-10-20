@@ -7,8 +7,8 @@ const ReposPage = (props) => {
     const {username} = useParams();
 
     useEffect(() => {
-        reposQuery(username, props.setReposData)
-    }, [])
+        reposQuery(username, props.setReposData);
+    }, []);
 
 
     const tableDataJSX = props.mainInfo.repos_info.map(rep => {

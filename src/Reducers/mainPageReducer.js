@@ -1,6 +1,6 @@
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_REPOS_DATA = 'SET_REPOS_DATA';
-const SET_STATE_CLEAR = 'SET_STATE_CLEAR';
+const SET_COMMIT_STATE_CLEAR = 'SET_COMMIT_STATE_CLEAR';
 const SET_COMMIT_DATA = 'SET_COMMIT_DATA';
 const SET_LOGIN_IS_VALID = 'SET_LOGIN_IS_VALID';
 
@@ -63,8 +63,13 @@ const mainPageReducer = (state = initialState, action) => {
             stateCopy.loginIsValid = action.bool;
             return stateCopy;
         }
-        case SET_STATE_CLEAR: {
-            return initialState;
+        case SET_COMMIT_STATE_CLEAR: {
+            let stateCopy = {...state};
+            stateCopy.mainInfo = {...stateCopy.mainInfo};
+            stateCopy.mainInfo.commit_info = [...stateCopy.mainInfo.commit_info];
+
+            stateCopy.mainInfo.commit_info = initialState.mainInfo.commit_info;
+            return stateCopy;
         }
         default: {
             return state;
@@ -81,8 +86,8 @@ export const setReposDataAC = (reposInfo) => {
 export const setCommitDataAC = (commitInfo) => {
     return {type: SET_COMMIT_DATA, commitInfo: commitInfo};
 };
-export const setStateClearAC = () => {
-    return {type: SET_STATE_CLEAR};
+export const setCommitStateClearAC = () => {
+    return {type: SET_COMMIT_STATE_CLEAR};
 };
 export const setLoginIsValidAC = (bool) => {
     return {type: SET_LOGIN_IS_VALID, bool: bool};

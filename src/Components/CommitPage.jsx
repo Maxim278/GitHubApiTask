@@ -6,6 +6,7 @@ const CommitPage = (props) => {
     const {username, rep} = useParams();
 
     useEffect(() => {
+        props.setCommitStateClear();
         commitsQuery(username, rep, props.setCommitData);
     }, [])
 
@@ -18,6 +19,7 @@ const CommitPage = (props) => {
             </tr>
         );
     })
+
     return (
         <div>
             <table>

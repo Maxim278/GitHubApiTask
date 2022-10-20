@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import ReposPage from "../Components/ReposPage";
-import {setReposDataAC, setStateClearAC, setUserDataAC} from "../Reducers/mainPageReducer";
+import {setReposDataAC, setUserDataAC} from "../Reducers/mainPageReducer";
 
 const mapStateToProps = (state) => {
     return {
@@ -12,7 +12,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setUserData: (mainInfo) => dispatch(setUserDataAC(mainInfo)),
         setReposData: (reposInfo) => dispatch(setReposDataAC(reposInfo)),
-        setStateClear: () => dispatch(setStateClearAC()),
     };
 }
 
