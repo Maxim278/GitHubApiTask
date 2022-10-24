@@ -1,24 +1,17 @@
-import React, {useEffect, useState} from "react";
 import styles from '../appStyles.module.css'
-import logo1 from '../pics/gitLogo1.png'
-import glassLogo from '../pics/glassLogo.png'
-import {NavLink, Navigate} from "react-router-dom";
-import {loginQuery} from "../axios/queries";
+import logo1 from '../Pictures/gitLogo1.png'
+import glassLogo from '../Pictures/glassLogo.png'
+import {NavLink} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setInputTextAC} from "../Reducers/mainPageReducer";
 
-const MainPage = (props) => {
-    const [inputText, setInputText] = useState('');
-    const [login, setLogin] = useState(inputText);
+const MainPage = () => {
+    const dispatch = useDispatch();
+    const inputText = useSelector(state => state.mainPageState.inputText);
 
-    useEffect(() => {
-        if (login !== '') {
-            loginQuery(login, props.setLoginIsValid, props.setUserData);
-        }
-
-    }, [login]);
-
-    if (props.loginIsValid === true) {
-        return <Navigate to={`${login}`}/>
-    }
+    const setInputText = (input) => {
+        dispatch(setInputTextAC(input));
+    };
 
     return (
         <div>
@@ -28,15 +21,12 @@ const MainPage = (props) => {
                        placeholder={'Username'}
                        value={inputText}
                        onChange={(e) => {
-                           setInputText(e.currentTarget.value)
+                           setInputText(e.currentTarget.value);
                        }}
                 />
-
-                <img className={styles.glassLogo} onClick={() => setLogin(inputText)} src={glassLogo} alt={'Search'}/>
-
-                {/*<NavLink to={login}>
-                    <img className={styles.glassLogo} onClick={() => setLogin(inputText)} src={glassLogo} alt={'Search'}/>
-                </NavLink>*/}
+                <NavLink to={`${inputText}`}>
+                    <img className={styles.glassLogo} src={glassLogo} alt={'Search'}/>
+                </NavLink>
 
             </div>
         </div>

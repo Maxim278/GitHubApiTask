@@ -1,16 +1,20 @@
 import {useEffect} from "react";
-import {commitsQuery} from "../axios/queries";
 import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setCommitDataTC, setCommitStateClearAC} from "../Reducers/mainPageReducer";
 
-const CommitPage = (props) => {
-    const {username, rep} = useParams();
+const CommitPage = () => {
+    const {login, rep} = useParams();
+
+    const dispatch = useDispatch();
+    const commitInfo = useSelector(state => state.mainPageState.mainInfo.commit_info);
 
     useEffect(() => {
-        props.setCommitStateClear();
-        commitsQuery(username, rep, props.setCommitData);
+        dispatch(setCommitStateClearAC());
+        dispatch(setCommitDataTC(login, rep));
     }, [])
 
-    const tableDataJSX = props.commitInfo.map((el) => {
+    const tableDataJSX = commitInfo.map((el) => {
         return (
             <tr key={el.commitSha}>
                 <td>{el.commitAuthorName}</td>
@@ -18,7 +22,7 @@ const CommitPage = (props) => {
                 <td>{el.commitDate.split('T', 1)}</td>
             </tr>
         );
-    })
+    });
 
     return (
         <div>

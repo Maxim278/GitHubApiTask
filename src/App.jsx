@@ -1,16 +1,18 @@
 import {Routes, Route} from "react-router-dom";
-import MainPageContainer from "./Containers/MainPageContainer";
-import CommitPageContainer from "./Containers/CommitPageContainer";
-import ReposPageContainer from "./Containers/ReposPageContainer";
+import MainPage from "./Components/MainPage";
+import ReposPage from "./Components/ReposPage";
+import CommitPage from "./Components/CommitPage";
+import {useSelector} from "react-redux";
 
-function App(props) {
+function App() {
+    const loginIsValid = useSelector(state => state.mainPageState.loginIsValid);
     return (
         <Routes>
-            <Route exact path={'/'} element={<MainPageContainer/>}/>
+            <Route exact path={'/'} element={<MainPage/>}/>
             {
-                props.loginIsValid && <Route path={`/:username`} element={<ReposPageContainer/>}/>
+                loginIsValid && <Route path={`/:login`} element={<ReposPage/>}/>
             }
-            <Route path={`/:username/:rep`} element={<CommitPageContainer/>}/>
+            <Route path={`/:login/:rep`} element={<CommitPage/>}/>
         </Routes>
     );
 }

@@ -1,31 +1,37 @@
 import styles from "../appStyles.module.css";
 import {NavLink, useParams} from "react-router-dom";
 import {useEffect} from "react";
-import {reposQuery} from "../axios/queries";
+import {getReposDataTC, getUserDataTC, setReposStateClearAC, setUserStateClearAC} from "../Reducers/mainPageReducer";
+import {useDispatch, useSelector} from "react-redux";
 
-const ReposPage = (props) => {
-    const {username} = useParams();
+const ReposPage = () => {
+    const {login} = useParams();
+    const dispatch = useDispatch();
+    const mainInfo = useSelector(state => state.mainPageState.mainInfo);
 
     useEffect(() => {
-        reposQuery(username, props.setReposData);
-    }, []);
+        dispatch(setUserStateClearAC());
+        dispatch(setReposStateClearAC());
+        dispatch(getUserDataTC(login));
+        dispatch(getReposDataTC(login))
+   }, []);
 
-
-    const tableDataJSX = props.mainInfo.repos_info.map(rep => {
+    const tableDataJSX = mainInfo.repos_info.map(rep => {
         return (
             <tr key={rep.repName}>
-                <td><NavLink to={`/${username}/${rep.repName}`}>{rep.repName}</NavLink></td>
+                <td><NavLink to={`/${login}/${rep.repName}`}>{rep.repName}</NavLink></td>
                 <td>{rep.repLanguage}</td>
                 <td>{rep.repDescription}</td>
                 <td>{rep.repStargazersCount}</td>
             </tr>
         );
     });
+
     return (
         <div>
             <div className={styles.reposHeader}>
-                <img className={styles.avatar} src={props.mainInfo.avatar_url} alt={'Avatar'}/>
-                <span className={styles.username}>{props.mainInfo.login}</span>
+                <img className={styles.avatar} src={mainInfo.avatar_url} alt={'Avatar'}/>
+                <span className={styles.username}>{mainInfo.login}</span>
             </div>
 
             <table>
