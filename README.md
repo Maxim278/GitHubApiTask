@@ -4,6 +4,6 @@
 Старт проекта с помощью _create-react-app_.
 
 Технологический стек:
- * State manager: Redux (+ react-redux);
+ * State manager: Redux;
  * Запросы к GitApi: axios;
  * Немного стилизации: CSS-модуль (flex).
