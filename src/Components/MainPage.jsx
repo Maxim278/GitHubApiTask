@@ -1,17 +1,32 @@
 import styles from '../appStyles.module.css'
 import logo1 from '../Pictures/gitLogo1.png'
 import glassLogo from '../Pictures/glassLogo.png'
-import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {setInputTextAC} from "../Reducers/mainPageReducer";
+import {checkLoginStatusTC, setInputTextAC, setLoginIsValidAC} from "../Reducers/mainPageReducer";
+import {Link, Navigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 const MainPage = () => {
     const dispatch = useDispatch();
     const inputText = useSelector(state => state.mainPageState.inputText);
+    //const loginIsValid = useSelector(state => state.mainPageState.loginIsValid);
+    //const [login, setLogin] = useState(inputText);
+
+   /* useEffect(() => {
+        if (login !== '')
+            dispatch(checkLoginStatusTC(login));
+    }, [login]);
+*/
+    useEffect( () => {
+        dispatch(setLoginIsValidAC(false));
+    }, []);
 
     const setInputText = (input) => {
         dispatch(setInputTextAC(input));
     };
+
+    /*if (loginIsValid)
+        return <Navigate to={login}/>*/
 
     return (
         <div>
@@ -24,10 +39,9 @@ const MainPage = () => {
                            setInputText(e.currentTarget.value);
                        }}
                 />
-                <NavLink to={`${inputText}`}>
+                <Link to={'/auth'}>
                     <img className={styles.glassLogo} src={glassLogo} alt={'Search'}/>
-                </NavLink>
-
+                </Link>
             </div>
         </div>
     );

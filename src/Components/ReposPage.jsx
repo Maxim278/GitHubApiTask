@@ -1,7 +1,13 @@
 import styles from "../appStyles.module.css";
-import {NavLink, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useEffect} from "react";
-import {getReposDataTC, getUserDataTC, setReposStateClearAC, setUserStateClearAC} from "../Reducers/mainPageReducer";
+import {
+    getReposDataTC,
+    getUserDataTC,
+    setLoginIsValidAC,
+    setReposStateClearAC,
+    setUserStateClearAC
+} from "../Reducers/mainPageReducer";
 import {useDispatch, useSelector} from "react-redux";
 
 const ReposPage = () => {
@@ -13,13 +19,13 @@ const ReposPage = () => {
         dispatch(setUserStateClearAC());
         dispatch(setReposStateClearAC());
         dispatch(getUserDataTC(login));
-        dispatch(getReposDataTC(login))
+        dispatch(getReposDataTC(login));
    }, []);
 
     const tableDataJSX = mainInfo.repos_info.map(rep => {
         return (
             <tr key={rep.repName}>
-                <td><NavLink to={`/${login}/${rep.repName}`}>{rep.repName}</NavLink></td>
+                <td><Link to={`/${login}/${rep.repName}`}>{rep.repName}</Link></td>
                 <td>{rep.repLanguage}</td>
                 <td>{rep.repDescription}</td>
                 <td>{rep.repStargazersCount}</td>

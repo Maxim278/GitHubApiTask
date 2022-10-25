@@ -29,7 +29,7 @@ let initialState = {
             }
         ]
     },
-    loginIsValid: true,
+    loginIsValid: '',
     inputText: '',
 }
 
@@ -42,7 +42,6 @@ const mainPageReducer = (state = initialState, action) => {
             for (let mainInfoKey in action.mainInfo) {
                 stateCopy.mainInfo[mainInfoKey] = action.mainInfo[mainInfoKey];
             }
-            console.log(stateCopy)
             return stateCopy;
         }
         case SET_REPOS_DATA: {
@@ -104,6 +103,21 @@ const mainPageReducer = (state = initialState, action) => {
         }
     }
 }
+
+export const checkLoginStatusTC = (login) => {
+    return (dispatch) => {
+        axios
+            .get(`https://api.github.com/users/${login}`)
+            .then(result => {
+                if (result)
+                    dispatch(setLoginIsValidAC(true));
+            })
+            .catch(error => {
+                dispatch(setLoginIsValidAC(false));
+                alert(`${error}. Invalid username.`);
+            });
+    };
+};
 
 export const getUserDataTC = (login) => {
     return (dispatch) => {
