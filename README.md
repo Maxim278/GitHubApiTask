@@ -1,8 +1,9 @@
+## Запустить проект: npm start
 ### Приложение для поиска пользователей GitHub и информации о их репозиториях и коммитах.
 
 Старт проекта с помощью _create-react-app_.
 
 Технологический стек:
- * State manager: Redux (+ react-redux);
+ * State manager: Redux;
  * Запросы к GitApi: axios;
  * Немного стилизации: CSS-модуль (flex).
