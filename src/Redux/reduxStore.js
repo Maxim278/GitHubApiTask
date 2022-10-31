@@ -4,7 +4,6 @@ import thunk from "redux-thunk";
 
 let reducers = combineReducers({
     mainPageState : mainPageReducer,
-    //commitPageState : commitPageReducer,
 });
 
 let store = createStore(reducers, applyMiddleware(thunk));

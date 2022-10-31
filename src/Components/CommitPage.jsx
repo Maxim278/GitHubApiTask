@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {setCommitDataTC, setCommitStateClearAC} from "../Reducers/mainPageReducer";
+import {getCommitDataTC, setCommitStateClearAC} from "../Reducers/mainPageReducer";
 
 const CommitPage = () => {
     const {login, rep} = useParams();
@@ -11,7 +11,7 @@ const CommitPage = () => {
 
     useEffect(() => {
         dispatch(setCommitStateClearAC());
-        dispatch(setCommitDataTC(login, rep));
+        dispatch(getCommitDataTC(login, rep));
     }, [])
 
     const tableDataJSX = commitInfo.map((el) => {

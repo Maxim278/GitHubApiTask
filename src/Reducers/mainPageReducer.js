@@ -31,7 +31,7 @@ let initialState = {
     },
     loginIsValid: '',
     inputText: '',
-}
+};
 
 const mainPageReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -135,7 +135,7 @@ export const getUserDataTC = (login) => {
             .catch(error => {
                 dispatch(setLoginIsValidAC(false));
                 alert(`${error}. Invalid username.`);
-            });
+            })
     };
 };
 
@@ -163,7 +163,7 @@ export const getReposDataTC = (login) => {
     };
 };
 
-export const setCommitDataTC = (login, rep) => {
+export const getCommitDataTC = (login, rep) => {
     return (dispatch) => {
         axios
             .get(`https://api.github.com/repos/${login}/${rep}/commits`)

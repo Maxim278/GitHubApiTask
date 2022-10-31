@@ -4,7 +4,6 @@ import {useEffect} from "react";
 import {
     getReposDataTC,
     getUserDataTC,
-    setLoginIsValidAC,
     setReposStateClearAC,
     setUserStateClearAC
 } from "../Reducers/mainPageReducer";
@@ -20,7 +19,7 @@ const ReposPage = () => {
         dispatch(setReposStateClearAC());
         dispatch(getUserDataTC(login));
         dispatch(getReposDataTC(login));
-   }, []);
+    }, []);
 
     const tableDataJSX = mainInfo.repos_info.map(rep => {
         return (
