@@ -19,7 +19,7 @@ const MainPage = () => {
     };
 
     return (
-        <div>
+        <>
             <img className={styles.gitLogo} src={logo1} alt={'Git Logo'}/>
             <form>
                 <input className={styles.input}
@@ -33,7 +33,7 @@ const MainPage = () => {
                     <img className={styles.glassLogo} src={glassLogo} alt={'Search'}/>
                 </Link>
             </form>
-        </div>
+        </>
     );
 }
 

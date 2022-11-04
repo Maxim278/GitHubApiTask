@@ -1,13 +1,15 @@
 import axios from "axios";
 
-const SET_INPUT_TEXT = 'SET_INPUT_TEXT';
-const SET_USER_DATA = 'SET_USER_DATA';
-const SET_USER_STATE_CLEAR = 'SET_USER_STATE_CLEAR';
-const SET_REPOS_DATA = 'SET_REPOS_DATA';
-const SET_REPOS_STATE_CLEAR = 'SET_REPOS_STATE_CLEAR';
-const SET_COMMIT_DATA = 'SET_COMMIT_DATA';
-const SET_COMMIT_STATE_CLEAR = 'SET_COMMIT_STATE_CLEAR';
-const SET_LOGIN_IS_VALID = 'SET_LOGIN_IS_VALID';
+const ACTIONS = {
+     SET_INPUT_TEXT : 'SET_INPUT_TEXT',
+     SET_USER_DATA : 'SET_USER_DATA',
+     SET_USER_STATE_CLEAR : 'SET_USER_STATE_CLEAR',
+     SET_REPOS_DATA : 'SET_REPOS_DATA',
+     SET_REPOS_STATE_CLEAR : 'SET_REPOS_STATE_CLEAR',
+     SET_COMMIT_DATA : 'SET_COMMIT_DATA',
+     SET_COMMIT_STATE_CLEAR : 'SET_COMMIT_STATE_CLEAR',
+     SET_LOGIN_IS_VALID : 'SET_LOGIN_IS_VALID',
+}
 
 let initialState = {
     mainInfo: {
@@ -29,13 +31,13 @@ let initialState = {
             }
         ]
     },
-    loginIsValid: '',
+    loginIsValid: false,
     inputText: '',
 };
 
 const mainPageReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_USER_DATA: {
+        case ACTIONS.SET_USER_DATA: {
             let stateCopy = {...state};
             stateCopy.mainInfo = {...stateCopy.mainInfo};
 
@@ -44,7 +46,7 @@ const mainPageReducer = (state = initialState, action) => {
             }
             return stateCopy;
         }
-        case SET_REPOS_DATA: {
+        case ACTIONS.SET_REPOS_DATA: {
             let stateCopy = {...state};
             stateCopy.mainInfo = {...stateCopy.mainInfo};
             stateCopy.mainInfo.repos_info = [...stateCopy.mainInfo.repos_info];
@@ -54,7 +56,7 @@ const mainPageReducer = (state = initialState, action) => {
             }
             return stateCopy;
         }
-        case SET_COMMIT_DATA: {
+        case ACTIONS.SET_COMMIT_DATA: {
             let stateCopy = {...state};
             stateCopy.mainInfo = {...stateCopy.mainInfo};
             stateCopy.mainInfo.commit_info = [...stateCopy.mainInfo.commit_info];
@@ -64,20 +66,20 @@ const mainPageReducer = (state = initialState, action) => {
             }
             return stateCopy;
         }
-        case SET_LOGIN_IS_VALID: {
+        case ACTIONS.SET_LOGIN_IS_VALID: {
             let stateCopy = {...state};
             stateCopy.loginIsValid = action.bool;
             return stateCopy;
         }
-        case SET_USER_STATE_CLEAR: {
+        case ACTIONS.SET_USER_STATE_CLEAR: {
             let stateCopy = {...state};
             stateCopy.mainInfo = {...stateCopy.mainInfo};
             stateCopy.mainInfo.commit_info = [...stateCopy.mainInfo.commit_info];
 
-            stateCopy.mainInfo.commit_info = initialState.mainInfo.commit_info;
+            stateCopy.mainInfo = initialState.mainInfo;
             return stateCopy;
         }
-        case SET_REPOS_STATE_CLEAR: {
+        case ACTIONS.SET_REPOS_STATE_CLEAR: {
             let stateCopy = {...state};
             stateCopy.mainInfo = {...stateCopy.mainInfo};
             stateCopy.mainInfo.repos_info = [...stateCopy.mainInfo.repos_info];
@@ -85,7 +87,7 @@ const mainPageReducer = (state = initialState, action) => {
             stateCopy.mainInfo.repos_info = initialState.mainInfo.repos_info;
             return stateCopy;
         }
-        case SET_COMMIT_STATE_CLEAR: {
+        case ACTIONS.SET_COMMIT_STATE_CLEAR: {
             let stateCopy = {...state};
             stateCopy.mainInfo = {...stateCopy.mainInfo};
             stateCopy.mainInfo.commit_info = [...stateCopy.mainInfo.commit_info];
@@ -93,7 +95,7 @@ const mainPageReducer = (state = initialState, action) => {
             stateCopy.mainInfo.commit_info = initialState.mainInfo.commit_info;
             return stateCopy;
         }
-        case SET_INPUT_TEXT: {
+        case ACTIONS.SET_INPUT_TEXT: {
             let stateCopy = {...state};
             stateCopy.inputText = action.inputText;
             return stateCopy;
@@ -114,7 +116,9 @@ export const checkLoginStatusTC = (login) => {
             })
             .catch(error => {
                 dispatch(setLoginIsValidAC(false));
-                alert(`${error}. Invalid username.`);
+/*
+                prompt(`${error}. Invalid username.`);
+*/
             });
     };
 };
@@ -189,28 +193,28 @@ export const getCommitDataTC = (login, rep) => {
 };
 
 export const setUserDataAC = (mainInfo) => {
-    return {type: SET_USER_DATA, mainInfo: mainInfo};
+    return {type: ACTIONS.SET_USER_DATA, mainInfo: mainInfo};
 };
 export const setReposDataAC = (reposInfo) => {
-    return {type: SET_REPOS_DATA, reposInfo: reposInfo};
+    return {type: ACTIONS.SET_REPOS_DATA, reposInfo: reposInfo};
 };
 export const setCommitDataAC = (commitInfo) => {
-    return {type: SET_COMMIT_DATA, commitInfo: commitInfo};
+    return {type: ACTIONS.SET_COMMIT_DATA, commitInfo: commitInfo};
 };
 export const setUserStateClearAC = () => {
-    return {type: SET_USER_STATE_CLEAR};
+    return {type: ACTIONS.SET_USER_STATE_CLEAR};
 };
 export const setReposStateClearAC = () => {
-    return {type: SET_REPOS_STATE_CLEAR};
+    return {type: ACTIONS.SET_REPOS_STATE_CLEAR};
 };
 export const setCommitStateClearAC = () => {
-    return {type: SET_COMMIT_STATE_CLEAR};
+    return {type: ACTIONS.SET_COMMIT_STATE_CLEAR};
 };
 export const setLoginIsValidAC = (bool) => {
-    return {type: SET_LOGIN_IS_VALID, bool: bool};
+    return {type: ACTIONS.SET_LOGIN_IS_VALID, bool: bool};
 };
 export const setInputTextAC = (inputText) => {
-    return {type: SET_INPUT_TEXT, inputText: inputText};
+    return {type: ACTIONS.SET_INPUT_TEXT, inputText: inputText};
 };
 
 export default mainPageReducer;
